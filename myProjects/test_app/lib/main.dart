@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:test_app/gradient-container.dart';
 
-void main() {
+void main(List<String> args) {
   runApp(
     const MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromARGB(204, 22, 183, 127),
-        body: Text(
-          'Chuj',
-          style: TextStyle(
-              color: Colors.black,
-              fontSize: 85,
-              fontFamily: AutofillHints.nickname),
+        body: GradientContainer(
+          color1: Colors.deepOrange,
+          color2: Colors.yellow,
         ),
       ),
     ),
