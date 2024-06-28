@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage(this.startQuiz, {super.key});
@@ -14,7 +15,7 @@ class HomePage extends StatelessWidget {
           Image.asset(
             'assets/images/quiz-logo.png',
             width: 300,
-            color: const Color.fromARGB(160, 244, 67, 54),
+            color: const Color.fromARGB(210, 255, 255, 255),
           ),
           // Opacity(
           //   opacity: 0.6,
@@ -24,10 +25,9 @@ class HomePage extends StatelessWidget {
           //   ),
           // ),
           const SizedBox(height: 40),
-          const Text(
+          Text(
             'Learn Flutter the fun way!',
-            style: TextStyle(
-                fontSize: 26, color: Color.fromARGB(200, 255, 255, 255)),
+            style: GoogleFonts.lato(color: Colors.white, fontSize: 28),
           ),
           const SizedBox(height: 40),
           OutlinedButton.icon(

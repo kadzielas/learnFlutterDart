@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/data/questions.dart';
 import 'package:quiz_app/home_screen.dart';
 import 'package:quiz_app/questions_screen.dart';
+import 'package:quiz_app/results_screen.dart';
 
 class Quiz extends StatefulWidget {
   const Quiz({super.key});
@@ -10,30 +12,60 @@ class Quiz extends StatefulWidget {
 }
 
 class _QuizState extends State<Quiz> {
-  var activeScreen = 'home-page';
+  var _activeScreen = 'home-page';
+  List<String> _selectedAnswers = [];
 
   // @override
   // void initState() {
-  //   activeScreen = HomePage(swithScreen);
+  //   _activeScreen = HomePage(swithScreen);
   //   super.initState();
   // }
 
-  void switchScreen() {
+  void switchScreenToQuestions() {
     setState(() {
-      activeScreen = 'questions';
+      _activeScreen = 'questions';
+      debugPrint('Quiz has been started');
+    });
+  }
+
+  void chooseAnswer(String answer) {
+    _selectedAnswers.add(answer);
+
+    if (_selectedAnswers.length == questions.length) {
+      setState(() {
+        _activeScreen = 'results-screen';
+        debugPrint('Quiz has been completed');
+      });
+    }
+  }
+
+  void restartQuiz() {
+    setState(() {
+      _selectedAnswers = [];
+      _activeScreen = 'home-page';
+      debugPrint('Quiz has been restarted');
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // var screenWidget = activeScreen == 'start-screen'
-    //     ? HomePage(switchScreen)
+    // var screenWidget = _activeScreen == 'start-screen'
+    //     ? HomePage(switchScreenToQuestions)
     //     : const QuestionsScreen();
 
-    Widget screenWidget = HomePage(switchScreen);
+    Widget screenWidget = HomePage(switchScreenToQuestions);
 
-    if (activeScreen == 'questions') {
-      screenWidget = const QuestionsScreen();
+    if (_activeScreen == 'questions') {
+      screenWidget = QuestionsScreen(
+        onSelectAnswer: chooseAnswer,
+      );
+    }
+
+    if (_activeScreen == 'results-screen') {
+      screenWidget = ResultsScreen(
+        chosenAnswers: _selectedAnswers,
+        onRestart: restartQuiz,
+      );
     }
 
     return MaterialApp(
