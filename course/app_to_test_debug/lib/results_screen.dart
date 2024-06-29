@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+
+import 'package:adv_basics/data/questions.dart';
+import 'package:adv_basics/questions_summary/questions_summary.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:quiz_app/data/questions.dart';
-import 'package:quiz_app/questions_summary/questions_summary.dart';
-
 class ResultsScreen extends StatelessWidget {
-  const ResultsScreen(
-      {super.key, required this.chosenAnswers, required this.onRestart});
+  const ResultsScreen({
+    super.key,
+    required this.chosenAnswers,
+    required this.onRestart,
+  });
 
   final void Function() onRestart;
   final List<String> chosenAnswers;
@@ -15,7 +18,6 @@ class ResultsScreen extends StatelessWidget {
     final List<Map<String, Object>> summary = [];
 
     for (var i = 0; i < chosenAnswers.length; i++) {
-      // .add({}) - {} is necessary to create map
       summary.add(
         {
           'question_index': i,
@@ -25,6 +27,7 @@ class ResultsScreen extends StatelessWidget {
         },
       );
     }
+
     return summary;
   }
 
@@ -32,21 +35,24 @@ class ResultsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final numTotalQuestions = questions.length;
     final numCorrectQuestions = summaryData
-        .where((data) => data['user_answer'] == data['correct_answer'])
+        .where(
+          (data) => data['user_answer'] == data['correct_answer'],
+        )
         .length;
 
     return SizedBox(
       width: double.infinity,
       child: Container(
-        margin: const EdgeInsets.all(20),
+        margin: const EdgeInsets.all(40),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
               'You answered $numCorrectQuestions out of $numTotalQuestions questions correctly!',
               style: GoogleFonts.lato(
-                color: Colors.white,
-                fontSize: 28,
+                color: const Color.fromARGB(255, 230, 200, 253),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
             ),
@@ -59,12 +65,12 @@ class ResultsScreen extends StatelessWidget {
             ),
             TextButton.icon(
               onPressed: onRestart,
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+              ),
               icon: const Icon(Icons.refresh),
-              label: const Text('Restart Quiz'),
-              style: OutlinedButton.styleFrom(
-                  foregroundColor: const Color.fromARGB(255, 129, 28, 206),
-                  backgroundColor: Colors.white),
-            ),
+              label: const Text('Restart Quiz!'),
+            )
           ],
         ),
       ),
