@@ -4,10 +4,9 @@ import 'package:market_app/screens/home-screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final theme = ThemeData(
-  useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(
-    seedColor: Color.fromARGB(255, 200, 116, 48),
-    brightness: Brightness.dark,
+    seedColor: const Color.fromARGB(255, 20, 113, 219),
+    brightness: Brightness.light,
   ),
   textTheme: GoogleFonts.latoTextTheme(),
 );
