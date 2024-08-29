@@ -8,5 +8,6 @@ const availableProducts = [
     price: 2.50,
     company: 'Lidl',
     image: 'assets/products/lidl_pilos_mleko_32.png',
+    bucket: true,
   ),
 ];

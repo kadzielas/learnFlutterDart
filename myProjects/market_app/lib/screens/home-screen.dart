@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:market_app/widgets/main_drawer.dart';
 import 'package:market_app/widgets/table.dart';
-import 'package:market_app/providers/products_provider.dart';
-import 'package:market_app/lists/products_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -25,18 +23,13 @@ class HomeScreen extends StatelessWidget {
       drawer: MainDrawer(
         onSelectScreen: _setScreen,
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.0),
           child: Column(
             children: [
               ShoppingTable(),
               const SizedBox(height: 20),
-              // Expanded(child: mainContent),
-              ElevatedButton(
-                onPressed: () {},
-                child: const Text('Zarządzaj listą'),
-              ),
             ],
           ),
         ),

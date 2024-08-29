@@ -6,6 +6,7 @@ class Product {
     required this.price,
     required this.company,
     required this.image,
+    required this.bucket,
   });
   final String id;
   final String type;
@@ -13,4 +14,5 @@ class Product {
   final double price;
   final String company;
   final String image;
+  final bool bucket;
 }
