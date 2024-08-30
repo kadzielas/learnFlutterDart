@@ -12,13 +12,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final ProductsList product = ref.watch(productsProvider);
-    Widget mainContent = const Center(
-      child: Text('Lista jest pusta'),
-    );
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home page'),
+        title: const Text('Strona główna'),
       ),
       drawer: MainDrawer(
         onSelectScreen: _setScreen,

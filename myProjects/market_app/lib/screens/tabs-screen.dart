@@ -1,39 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:market_app/screens/home-screen.dart';
+import 'package:market_app/data/products_data.dart';
+import 'package:market_app/models/product.dart';
 
-class TabsScreen extends ConsumerStatefulWidget {
+import 'package:market_app/screens/home-screen.dart';
+import 'package:market_app/screens/products-screen.dart';
+
+class TabsScreen extends StatefulWidget {
   const TabsScreen({
     super.key,
   });
 
   @override
-  ConsumerState<TabsScreen> createState() => _TabsScreenState();
+  State<TabsScreen> createState() => _TabsScreenState();
 }
 
-class _TabsScreenState extends ConsumerState<TabsScreen> {
+class _TabsScreenState extends State<TabsScreen> {
   int _selectedPageIndex = 0;
 
-  // void _selectPage(int index) {
-  //   if (index == 1) {
-  //     // Nawigacja do ProductsScreen po kliknięciu w "Dodaj produkt"
-  //     Navigator.of(context).push(
-  //       MaterialPageRoute(
-  //         builder: (ctx) => ProductsScreen(),
-  //       ),
-  //     );
-  //   } else {
-  //     setState(() {
-  //       _selectedPageIndex = index;
-  //     });
-  //   }
-  // }
+  void _selectPage(int index) {
+    setState(() {
+      _selectedPageIndex = index;
+    });
+    if (index == 0) {
+      print('Zarządzaj listą');
+    } else if (index == 1) {
+      print('Dodaj produkt');
+      _openAddProductOverlay();
+    }
+  }
+
+  void _openAddProductOverlay() {
+    showModalBottomSheet(
+      useSafeArea: true,
+      isScrollControlled: true,
+      context: context,
+      builder: (ctx) => ProductsScreen(onAddProduct: _addProduct),
+    );
+  }
+
+  void _addProduct(Product product) {
+    setState(() {
+      availableProducts.add(product);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: HomeScreen(),
+      body: const HomeScreen(),
       bottomNavigationBar: BottomNavigationBar(
+        onTap: _selectPage,
         currentIndex: _selectedPageIndex,
         items: const [
           BottomNavigationBarItem(
