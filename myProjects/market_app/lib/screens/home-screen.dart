@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               ShoppingTable(),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
             ],
           ),
         ),

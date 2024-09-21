@@ -22,17 +22,17 @@ class _ProductsScreenState extends State<ProductsScreen> {
       child: Column(
         children: [
           DropdownButton<String>(
-            hint: const Text('Wybierz sklep'),
+            hint: const Text('Wybierz kategorie'),
             value: selectedStore,
             items: <String>[
-              'Lidl',
-              'Biedronka',
-              'Żabka',
-              'Aldi',
-              'Carrefour',
-              'Dino',
-              'Kaufland',
-              'Auchan'
+              'Nabiał',
+              'Napoje',
+              'Warzywa i owoce',
+              'Różne',
+              'Kawa i herbata',
+              'Mrożone',
+              'Środki czystości',
+              'Wszystko'
             ].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
