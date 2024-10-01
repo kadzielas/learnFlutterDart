@@ -45,7 +45,8 @@ class ShoppingTable extends StatelessWidget {
             ),
           ],
         ),
-        for (var product in availableProducts)
+        for (var product
+            in availableProducts.where((product) => product.bucket == true))
           TableRow(
             children: [
               TableCell(

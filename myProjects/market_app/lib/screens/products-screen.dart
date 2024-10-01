@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:market_app/data/products_data.dart';
 import 'package:market_app/models/product.dart';
 
 class ProductsScreen extends StatefulWidget {
@@ -12,9 +13,19 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   String? selectedStore;
+  String? selectedCategory;
 
   @override
   Widget build(BuildContext context) {
+    // Logika filtrowania w build
+    final filteredProductsByCategory = selectedCategory == 'Wszystko'
+        ? testList
+        : testList
+            .where((product) =>
+                product.category.toLowerCase() ==
+                selectedCategory?.toLowerCase())
+            .toList();
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.9,
       width: MediaQuery.of(context).size.width,
@@ -23,7 +34,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
         children: [
           DropdownButton<String>(
             hint: const Text('Wybierz kategorie'),
-            value: selectedStore,
+            value: selectedCategory,
             items: <String>[
               'Nabiał',
               'Napoje',
@@ -32,6 +43,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
               'Kawa i herbata',
               'Mrożone',
               'Środki czystości',
+              'Przyprawy',
+              'Mięsa',
+              'Sosy',
+              'Przekąski',
               'Wszystko'
             ].map((String value) {
               return DropdownMenuItem<String>(
@@ -41,11 +56,21 @@ class _ProductsScreenState extends State<ProductsScreen> {
             }).toList(),
             onChanged: (String? newValue) {
               setState(() {
-                selectedStore = newValue;
+                selectedCategory = newValue;
               });
             },
           ),
-          const Spacer(),
+          Expanded(
+            child: ListView.builder(
+              itemCount: filteredProductsByCategory.length,
+              itemBuilder: (ctx, index) {
+                final product = filteredProductsByCategory[index];
+                return ListTile(
+                  title: Text(product.title),
+                );
+              },
+            ),
+          ),
           TextButton(
             onPressed: () {
               print('produkty zostały dodane do koszyka');
