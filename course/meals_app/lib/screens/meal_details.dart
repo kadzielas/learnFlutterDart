@@ -4,6 +4,7 @@ import 'package:meals_app/models/meal.dart';
 import 'package:meals_app/providers/favorites_provider.dart';
 
 class MealDetailsScreen extends ConsumerWidget {
+  //ConsumerWidget is Stateless widget then ref is not global unlike to ConsumerStatefulWidget
   const MealDetailsScreen({
     super.key,
     required this.meal,
@@ -13,6 +14,8 @@ class MealDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final favoriteMeals = ref.watch(favoriteMealsProvider);
+    final isFavorite = favoriteMeals.contains(meal);
     return Scaffold(
       appBar: AppBar(
         title: Text(meal.title),
@@ -30,7 +33,7 @@ class MealDetailsScreen extends ConsumerWidget {
                 ),
               );
             },
-            icon: const Icon(Icons.star),
+            icon: Icon(isFavorite ? Icons.star : Icons.star_border),
           ),
         ],
       ),
