@@ -13,4 +13,6 @@ class Product {
   final String image;
   final bool bucket;
   final String category;
+
+  get keys => null;
 }

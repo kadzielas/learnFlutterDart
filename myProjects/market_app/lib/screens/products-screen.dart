@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:market_app/data/products_data.dart';
-import 'package:market_app/models/product.dart';
 
 class ProductsScreen extends StatefulWidget {
-  const ProductsScreen({super.key, required this.onAddProduct});
+  const ProductsScreen({super.key});
 
-  final void Function(Product product) onAddProduct;
+  // final void Function(Product product) onAddProduct;
 
   @override
   State<ProductsScreen> createState() => _ProductsScreenState();
@@ -36,6 +35,8 @@ class _ProductsScreenState extends State<ProductsScreen> {
             hint: const Text('Wybierz kategorie'),
             value: selectedCategory,
             items: <String>[
+              'Własne',
+              'Ulubione',
               'Nabiał',
               'Napoje',
               'Warzywa i owoce',
@@ -73,13 +74,14 @@ class _ProductsScreenState extends State<ProductsScreen> {
           ),
           TextButton(
             onPressed: () {
-              print('produkty zostały dodane do koszyka');
+              print('Produkty zostały dodane do koszyka');
               Navigator.pop(context);
             },
             child: const Text('Dodaj produkty'),
           ),
           TextButton(
             onPressed: () {
+              print('Wybrane produkty zostały anulowane');
               Navigator.pop(context);
             },
             child: const Text('Anuluj'),

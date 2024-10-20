@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:market_app/screens/tabs-screen.dart';
+import 'package:market_app/screens/home-screen.dart';
 
 final theme = ThemeData(
-  useMaterial3: true,
   colorScheme: ColorScheme.fromSeed(
     brightness: Brightness.light,
-    seedColor: Color.fromARGB(255, 27, 150, 199),
+    seedColor: const Color.fromARGB(255, 72, 195, 158),
   ),
   textTheme: GoogleFonts.latoTextTheme(),
 );
@@ -22,13 +21,18 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  const App({super.key});
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: const TabsScreen(),
+      home: const DefaultTabController(
+        length: 3,
+        child: HomeScreen(
+          title: "Bercik Cart",
+        ),
+      ),
     );
   }
 }

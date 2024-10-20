@@ -102,6 +102,22 @@ class MainDrawer extends StatelessWidget {
               Text('filiters');
             },
           ),
+          ListTile(
+            leading: Icon(
+              Icons.logout,
+              size: 26,
+              color: Theme.of(context).colorScheme.onBackground,
+            ),
+            title: Text(
+              'Wyloguj się',
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground,
+                  fontSize: 24),
+            ),
+            onTap: () {
+              Text('log out');
+            },
+          ),
         ],
       ),
     );
