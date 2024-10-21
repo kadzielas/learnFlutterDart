@@ -39,6 +39,7 @@ dependencies:
   riverpod_annotation: ^2.3.5
   google_fonts: ^6.2.1
   scrollable_table_view: ^2.0.3
+  postgres: ^3.4.0
 
 dev_dependencies:
   flutter_test:
