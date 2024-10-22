@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:market_app/data/postgres.dart';
 import 'package:market_app/screens/products-screen.dart';
 import 'package:market_app/widgets/grocery_table.dart';
 
 import 'package:market_app/widgets/main_drawer.dart';
-import 'package:postgres/postgres.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key, required this.title});
@@ -17,19 +15,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   late TabController _tabController;
-
-  void _loadItems() async {
-    final conn = await Connection.open(
-      Endpoint(
-          host: 'localhost',
-          database: 'bercikcart',
-          username: 'postgres',
-          password: '1234'),
-    );
-
-    final result = await conn.execute("SELECT * FROM products;");
-    print(result);
-  }
 
   @override
   void initState() {
@@ -65,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             child: ProductsScreen(),
           ),
           Center(
-            child: Postgres(),
+            child: Text('data'),
           ),
         ],
       ),
