@@ -30,7 +30,7 @@ class App extends StatelessWidget {
       home: const DefaultTabController(
         length: 3,
         child: HomeScreen(
-          title: "Bercik Cart",
+          title: "Bercik Cart!",
         ),
       ),
     );
