@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +13,12 @@ final theme = ThemeData(
   textTheme: GoogleFonts.latoTextTheme(),
 );
 
-void main() {
+Future<void> main() async {
+  try {
+    await dotenv.load(fileName: "dev.env");
+  } catch (e) {
+    print('Error loading .env file: $e');
+  }
   runApp(
     const ProviderScope(
       child: App(),

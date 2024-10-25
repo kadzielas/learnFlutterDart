@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:market_app/models/categories.dart';
 import 'package:market_app/models/product.dart';
 import 'package:market_app/widgets/new_product.dart';
@@ -27,14 +28,14 @@ class _ProductsScreenState extends State<ProductsScreen> {
     // _isLoading = false;
   }
 
-  connectToDatabase() async {
+  Future<void> connectToDatabase() async {
     final conn = await Connection.open(
       Endpoint(
-        host: '192.168.0.211',
-        port: 5432,
-        database: 'bercikcart',
-        username: 'postgres',
-        password: '1234',
+        host: dotenv.env['DB_HOST']!,
+        port: int.parse(dotenv.env['DB_PORT']!),
+        database: dotenv.env['DB_NAME']!,
+        username: dotenv.env['DB_USER']!,
+        password: dotenv.env['DB_PASS']!,
       ),
       settings: const ConnectionSettings(sslMode: SslMode.disable),
     );
@@ -187,16 +188,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 ),
                 key: ValueKey(_productsList[index].id),
                 child: ListTile(
-                  title: Text(_productsList.where(
-                      (item) => item.category == Categories.frozen) as String),
+                  title: Text(_productsList[index].title),
+                  leading: Container(
+                    width: 8,
+                    height: 8,
+                  ),
                 ),
-                // child: ListTile(
-                //   title: Text(_productsList[index].title),
-                //   leading: Container(
-                //     width: 8,
-                //     height: 8,
-                //   ),
-                // ),
               ),
             ),
           ),
