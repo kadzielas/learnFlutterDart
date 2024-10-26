@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:market_app/screens/home-screen.dart';
+import 'package:market_app/screens/tabs/lists-screen.dart';
 
 final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
@@ -13,16 +12,10 @@ final theme = ThemeData(
   textTheme: GoogleFonts.latoTextTheme(),
 );
 
-Future<void> main() async {
-  try {
-    await dotenv.load(fileName: "dev.env");
-  } catch (e) {
-    print('Error loading .env file: $e');
-  }
+void main() async {
+  await dotenv.load(fileName: ".env");
   runApp(
-    const ProviderScope(
-      child: App(),
-    ),
+    const App(),
   );
 }
 
@@ -35,7 +28,7 @@ class App extends StatelessWidget {
       theme: theme,
       home: const DefaultTabController(
         length: 3,
-        child: HomeScreen(
+        child: ListsScreen(
           title: "Bercik Cart!",
         ),
       ),

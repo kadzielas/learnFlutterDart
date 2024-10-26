@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:market_app/screens/products-screen.dart';
-import 'package:market_app/widgets/grocery_table.dart';
+import 'package:market_app/screens/tabs/products-screen.dart';
+import 'package:market_app/widgets/created-lists.dart';
 
-import 'package:market_app/widgets/main_drawer.dart';
+import 'package:market_app/widgets/hamburger-menu.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key, required this.title});
+class ListsScreen extends StatefulWidget {
+  const ListsScreen({super.key, required this.title});
 
   final String title;
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<ListsScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+class _HomeScreenState extends State<ListsScreen>
+    with TickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -37,14 +38,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      drawer: MainDrawer(
+      drawer: HamburgerMenu(
         onSelectScreen: _setScreen,
       ),
       body: TabBarView(
         controller: _tabController,
+        physics: const NeverScrollableScrollPhysics(),
         children: const <Widget>[
           Center(
-            child: GroceryTable(),
+            child: CreatedLists(),
           ),
           Center(
             child: ProductsScreen(),

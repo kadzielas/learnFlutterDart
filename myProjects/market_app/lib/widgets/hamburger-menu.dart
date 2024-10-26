@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class MainDrawer extends StatelessWidget {
-  const MainDrawer({super.key, required this.onSelectScreen});
+class HamburgerMenu extends StatelessWidget {
+  const HamburgerMenu({super.key, required this.onSelectScreen});
 
   final void Function(String identifier) onSelectScreen;
 
@@ -20,11 +20,6 @@ class MainDrawer extends StatelessWidget {
             ),
             child: Row(
               children: [
-                // Icon(
-                //   Icons.fastfood,
-                //   size: 48,
-                //   color: Theme.of(context).colorScheme.primary,
-                // ),
                 const SizedBox(
                   height: 18,
                 ),
