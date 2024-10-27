@@ -38,7 +38,7 @@ class _CreatedListsState extends State<CreatedLists> {
     return Scaffold(
       body: SingleChildScrollView(
         child: ExpansionTile(
-          title: const Text('Lista ogólna'),
+          title: const Text('Lista X'),
           trailing: Icon(_tileExpanded
               ? Icons.arrow_drop_down_circle
               : Icons.arrow_drop_up),
