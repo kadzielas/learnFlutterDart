@@ -2,7 +2,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:market_app/models/categories.dart';
 import 'package:market_app/models/product.dart';
 import 'package:postgres/postgres.dart';
-import 'dart:io' show Platform, stdout;
 
 List<Product> availableProductsList = [];
 List<Product> listProducts = [];
@@ -36,8 +35,6 @@ Future<void> connectToDatabase() async {
     );
   }).toList();
   print(availableProductsList);
-  String hostname = Platform.version;
-  print(hostname);
 }
 
 Categories _getCategoryFromString(String categoryString) {

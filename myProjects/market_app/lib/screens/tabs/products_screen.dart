@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:market_app/providers/products-list.dart';
+import 'package:market_app/models/categories.dart';
+import 'package:market_app/models/product.dart';
+
+import 'package:market_app/providers/products_list.dart';
 
 class ProductsScreen extends StatefulWidget {
   const ProductsScreen({super.key});
-
-  // final void Function(Product product) onAddProduct;
 
   @override
   State<ProductsScreen> createState() => _ProductsScreenState();
@@ -12,42 +13,16 @@ class ProductsScreen extends StatefulWidget {
 
 class _ProductsScreenState extends State<ProductsScreen> {
   String? selectedStore;
-  String? selectedCategory;
+  Categories? selectedCategory;
+  List<Product> filteredProduct = [];
 
-  @override
-  void initState() {
-    super.initState();
-    connect();
+  filteredProducts() async {
+    filteredProduct = availableProductsList
+        .where((productX) => productX.category == selectedCategory)
+        .toList();
+
+    print('filtered cyk cyk $filteredProduct');
   }
-
-  @override
-  void dispose() {
-    conn.close();
-    super.dispose();
-  }
-
-  // void _removeItem(Product item) async {
-  //   // final index = _availableProductsList.indexOf(item);
-  //   setState(() {
-  //     _availableProductsList.remove(item);
-  //   });
-  // }
-
-  // void _addItem() async {
-  //   final newItem = await Navigator.of(context).push<Product>(
-  //     MaterialPageRoute(
-  //       builder: (ctx) => const NewProduct(),
-  //     ),
-  //   );
-
-  //   if (newItem == null) {
-  //     return;
-  //   }
-
-  //   setState(() {
-  //     _availableProductsList.add(newItem);
-  //   });
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +34,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
         children: [
           DropdownButton<String>(
             hint: const Text('Wybierz kategorie'),
-            value: selectedCategory,
             items: <String>[
               'Własne',
               'Ulubione',
@@ -83,12 +57,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
             }).toList(),
             onChanged: (String? newValue) {
               setState(() {
-                if (newValue == 'Własne') {
-                  print('Własne');
-                } else if (newValue == 'Ulubione') {
-                  selectedCategory = 'Ulubione';
-                } else {
-                  selectedCategory = newValue;
+                connect();
+                filteredProducts();
+
+                if (newValue == 'Mrożone') {
+                  selectedCategory = Categories.frozen;
+                  print('mrozone cyk $selectedCategory');
                 }
               });
             },
@@ -102,10 +76,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     // _removeItem(
                     //   _availableProductsList[index],
                     // );
-                    print('Dodałeś produkt');
-                  } else if (direction == DismissDirection.startToEnd) {
-                    print('Usunąłeś produkt');
-                  }
+                  } else if (direction == DismissDirection.startToEnd) {}
                 },
                 confirmDismiss: (DismissDirection direction) async {
                   if (direction == DismissDirection.endToStart) {
@@ -130,6 +101,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                       },
                     );
                   }
+                  return null;
                 },
                 background: Container(
                   color: Colors.green,
@@ -137,10 +109,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                 secondaryBackground: Container(
                   color: Colors.red,
                 ),
-                key: ValueKey(availableProductsList[index].id),
+                key: ValueKey(filteredProduct[index].id),
                 child: ListTile(
-                  title: Text(availableProductsList[index].title),
-                  leading: Container(
+                  title: Text(filteredProduct[index].title),
+                  leading: const SizedBox(
                     width: 8,
                     height: 8,
                   ),
@@ -148,20 +120,23 @@ class _ProductsScreenState extends State<ProductsScreen> {
               ),
             ),
           ),
-          TextButton(
-            onPressed: () {
-              print('Produkty zostały dodane do koszyka');
-              Navigator.pop(context);
-            },
-            child: const Text('Dodaj produkty'),
-          ),
-          TextButton(
-            onPressed: () {
-              print('Wybrane produkty zostały anulowane');
-              Navigator.pop(context);
-            },
-            child: const Text('Anuluj'),
-          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Dodaj produkty'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text('Anuluj'),
+              ),
+            ],
+          )
         ],
       ),
     );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:market_app/screens/tabs/products-screen.dart';
-import 'package:market_app/widgets/created-lists.dart';
+import 'package:market_app/screens/tabs/products_screen.dart';
+import 'package:market_app/widgets/created_lists.dart';
 
-import 'package:market_app/widgets/hamburger-menu.dart';
+import 'package:market_app/widgets/hamburger_menu.dart';
 
 class ListsScreen extends StatefulWidget {
   const ListsScreen({super.key, required this.title});
