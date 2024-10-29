@@ -1,8 +1,9 @@
 enum Categories {
   own,
   favorites,
-  beverages,
-  vgetablesfruits,
+  softdrinks,
+  dairy,
+  vegetablesfruits,
   miscellaneous,
   coffetea,
   frozen,

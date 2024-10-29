@@ -34,7 +34,7 @@ Future<void> connectToDatabase() async {
       quanitityHome: row[4],
     );
   }).toList();
-  print(availableProductsList);
+  print('List of all products has been downloaded');
 }
 
 Categories _getCategoryFromString(String categoryString) {

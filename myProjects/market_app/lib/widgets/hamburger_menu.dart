@@ -12,6 +12,8 @@ class HamburgerMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final primaryColor = Theme.of(context).colorScheme.primary;
+    final secondaryColor = Theme.of(context).colorScheme.onPrimaryContainer;
     return Drawer(
       child: Column(
         children: [
@@ -42,13 +44,14 @@ class HamburgerMenu extends StatelessWidget {
             leading: Icon(
               Icons.home,
               size: 26,
-              color: Theme.of(context).colorScheme.primary,
+              color: primaryColor,
             ),
             title: Text(
               'Zarządzaj domem',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  fontSize: 24),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: secondaryColor, fontSize: 24),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -64,13 +67,14 @@ class HamburgerMenu extends StatelessWidget {
             leading: Icon(
               Icons.family_restroom,
               size: 26,
-              color: Theme.of(context).colorScheme.primary,
+              color: primaryColor,
             ),
             title: Text(
               'Rodzina',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  fontSize: 24),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: secondaryColor, fontSize: 24),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -86,13 +90,14 @@ class HamburgerMenu extends StatelessWidget {
             leading: Icon(
               Icons.query_stats_outlined,
               size: 26,
-              color: Theme.of(context).colorScheme.primary,
+              color: primaryColor,
             ),
             title: Text(
               'Statystyki',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  fontSize: 24),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: secondaryColor, fontSize: 24),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -108,13 +113,14 @@ class HamburgerMenu extends StatelessWidget {
             leading: Icon(
               Icons.history,
               size: 26,
-              color: Theme.of(context).colorScheme.primary,
+              color: primaryColor,
             ),
             title: Text(
               'Historia zakupów',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  fontSize: 24),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: secondaryColor, fontSize: 24),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -130,13 +136,14 @@ class HamburgerMenu extends StatelessWidget {
             leading: Icon(
               Icons.settings,
               size: 26,
-              color: Theme.of(context).colorScheme.primary,
+              color: primaryColor,
             ),
             title: Text(
               'Ustawienia konta',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  fontSize: 24),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: secondaryColor, fontSize: 24),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -152,13 +159,14 @@ class HamburgerMenu extends StatelessWidget {
             leading: Icon(
               Icons.logout,
               size: 26,
-              color: Theme.of(context).colorScheme.primary,
+              color: primaryColor,
             ),
             title: Text(
               'Wyloguj się',
-              style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
-                  fontSize: 24),
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: secondaryColor, fontSize: 24),
             ),
             onTap: () {
               const Text('log out');

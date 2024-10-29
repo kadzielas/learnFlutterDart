@@ -12,20 +12,62 @@ class ProductsScreen extends StatefulWidget {
 }
 
 class _ProductsScreenState extends State<ProductsScreen> {
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    connect();
+    _loadData();
+  }
+
+  Future<void> _loadData() async {
+    await Future.delayed(const Duration(seconds: 1));
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   String? selectedStore;
-  Categories? selectedCategory;
-  List<Product> filteredProduct = [];
+  late Categories selectedCategory;
+  late List<Product> filteredProduct = [];
 
-  filteredProducts() async {
-    filteredProduct = availableProductsList
-        .where((productX) => productX.category == selectedCategory)
-        .toList();
+  filteredProducts(Categories category) {
+    setState(() {
+      if (category != Categories.everything) {
+        filteredProduct = availableProductsList
+            .where((productX) => productX.category == selectedCategory)
+            .toList();
+      } else {
+        filteredProduct = availableProductsList;
+      }
 
-    print('filtered cyk cyk $filteredProduct');
+      print('filtered cyk cyk $filteredProduct i $selectedCategory');
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    late var titlehint = 'Wybierz kategorie';
+    String? selectedValue;
+    Widget loadingScreen = const Center(
+      child: Placeholder(),
+    );
+    if (_isLoading) {
+      loadingScreen = const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    List<Product> showList() {
+      if (filteredProduct.isEmpty) {
+        return availableProductsList;
+      } else {
+        return filteredProduct;
+      }
+    }
+
     return Container(
       height: MediaQuery.of(context).size.height * 0.9,
       width: MediaQuery.of(context).size.width,
@@ -33,109 +75,173 @@ class _ProductsScreenState extends State<ProductsScreen> {
       child: Column(
         children: [
           DropdownButton<String>(
-            hint: const Text('Wybierz kategorie'),
+            hint: Text(titlehint),
             items: <String>[
-              'Własne',
+              'Wszystko',
               'Ulubione',
-              'Nabiał',
               'Napoje',
-              'Warzywa i owoce',
-              'Różne',
               'Kawa i herbata',
-              'Mrożone',
-              'Środki czystości',
-              'Przyprawy',
+              'Nabiał',
+              'Warzywa i owoce',
               'Mięsa',
-              'Sosy',
+              'Mrożone',
               'Przekąski',
-              'Wszystko'
+              'Przyprawy',
+              'Sosy',
+              'Środki czystości',
+              'Różne',
             ].map((String value) {
               return DropdownMenuItem<String>(
-                value: value,
+                value: (selectedValue == value) ? selectedValue : value,
                 child: Text(value),
               );
             }).toList(),
-            onChanged: (String? newValue) {
+            onChanged: (categorytitle) {
               setState(() {
-                connect();
-                filteredProducts();
+                switch (categorytitle) {
+                  case 'Ulubione':
+                    selectedCategory = Categories.favorites;
 
-                if (newValue == 'Mrożone') {
-                  selectedCategory = Categories.frozen;
-                  print('mrozone cyk $selectedCategory');
+                    break;
+                  case 'Napoje':
+                    selectedCategory = Categories.softdrinks;
+
+                    break;
+                  case 'Kawa i herbata':
+                    selectedCategory = Categories.coffetea;
+
+                    break;
+                  case 'Nabiał':
+                    selectedCategory = Categories.dairy;
+
+                    break;
+                  case 'Warzywa i owoce':
+                    selectedCategory = Categories.vegetablesfruits;
+
+                    break;
+                  case 'Mięsa':
+                    selectedCategory = Categories.meats;
+
+                    break;
+                  case 'Mrożone':
+                    selectedCategory = Categories.frozen;
+
+                    break;
+                  case 'Przekąski':
+                    selectedCategory = Categories.snacks;
+
+                    break;
+                  case 'Przyprawy':
+                    selectedCategory = Categories.spices;
+
+                    break;
+                  case 'Sosy':
+                    selectedCategory = Categories.sauces;
+
+                    break;
+                  case 'Środki czystości':
+                    selectedCategory = Categories.cleaning;
+
+                    break;
+                  case 'Różne':
+                    selectedCategory = Categories.miscellaneous;
+
+                    break;
+                  default:
+                    selectedCategory = Categories.everything;
                 }
+
+                setState(() {
+                  titlehint = categorytitle!;
+                });
+
+                filteredProducts(selectedCategory);
               });
             },
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: availableProductsList.length,
-              itemBuilder: (ctx, index) => Dismissible(
-                onDismissed: (direction) {
-                  if (direction == DismissDirection.endToStart) {
-                    // _removeItem(
-                    //   _availableProductsList[index],
-                    // );
-                  } else if (direction == DismissDirection.startToEnd) {}
-                },
-                confirmDismiss: (DismissDirection direction) async {
-                  if (direction == DismissDirection.endToStart) {
-                    return await showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text("Potwierdzenie"),
-                          content: const Text(
-                              "Czy na pewno chcesz usunąć ten element?"),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
-                              child: const Text("Nie"),
-                            ),
-                            TextButton(
-                              onPressed: () => Navigator.of(context).pop(true),
-                              child: const Text("Tak"),
-                            ),
-                          ],
-                        );
+            child: _isLoading
+                ? loadingScreen
+                : ListView.builder(
+                    itemCount: showList().length,
+                    itemBuilder: (ctx, index) => Dismissible(
+                      onDismissed: (direction) {
+                        if (direction == DismissDirection.endToStart) {
+                          // _removeItem(
+                          //   _availableProductsList[index],
+                          // );
+                        } else if (direction == DismissDirection.startToEnd) {}
                       },
-                    );
-                  }
-                  return null;
-                },
-                background: Container(
-                  color: Colors.green,
-                ),
-                secondaryBackground: Container(
-                  color: Colors.red,
-                ),
-                key: ValueKey(filteredProduct[index].id),
-                child: ListTile(
-                  title: Text(filteredProduct[index].title),
-                  leading: const SizedBox(
-                    width: 8,
-                    height: 8,
+                      confirmDismiss: (DismissDirection direction) async {
+                        if (direction == DismissDirection.endToStart) {
+                          return await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text("Potwierdzenie"),
+                                content: const Text(
+                                    "Czy na pewno chcesz usunąć ten element?"),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(false),
+                                    child: const Text("Nie"),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(true),
+                                    child: const Text("Tak"),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                        return null;
+                      },
+                      background: Container(
+                        color: Colors.green,
+                      ),
+                      secondaryBackground: Container(
+                        color: Colors.red,
+                      ),
+                      key: ValueKey(showList()[index].id),
+                      child: ListTile(
+                        title: Text(showList()[index].title),
+                        leading: const SizedBox(
+                          width: 8,
+                          height: 8,
+                        ),
+                      ),
+                    ),
                   ),
+          ),
+          Container(
+            decoration: const BoxDecoration(
+              border: Border(
+                top: BorderSide(
+                  width: 0.5,
+                  color: Color.fromARGB(255, 18, 100, 5),
                 ),
               ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('Dodaj produkty'),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('Anuluj'),
-              ),
-            ],
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Dodaj produkty'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Anuluj'),
+                ),
+              ],
+            ),
           )
         ],
       ),
