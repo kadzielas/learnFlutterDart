@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:market_app/providers/database_connection.dart';
 import 'package:market_app/screens/tabs/products_screen.dart';
 import 'package:market_app/widgets/created_lists.dart';
 
@@ -16,11 +17,22 @@ class ListsScreen extends StatefulWidget {
 class _HomeScreenState extends State<ListsScreen>
     with TickerProviderStateMixin {
   late TabController _tabController;
+  bool isLoading = true;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 3, vsync: this);
+    loadData();
+    connect();
+  }
+
+  Future<void> loadData() async {
+    await Future.delayed(const Duration(seconds: 3));
+
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -34,6 +46,10 @@ class _HomeScreenState extends State<ListsScreen>
 
   @override
   Widget build(BuildContext context) {
+    Widget loadingScreen = const Center(
+      child: CircularProgressIndicator(),
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -41,21 +57,23 @@ class _HomeScreenState extends State<ListsScreen>
       drawer: HamburgerMenu(
         onSelectScreen: _setScreen,
       ),
-      body: TabBarView(
-        controller: _tabController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: const <Widget>[
-          Center(
-            child: CreatedLists(),
-          ),
-          Center(
-            child: ProductsScreen(),
-          ),
-          Center(
-            child: Text('data'),
-          ),
-        ],
-      ),
+      body: isLoading
+          ? loadingScreen
+          : TabBarView(
+              controller: _tabController,
+              physics: const NeverScrollableScrollPhysics(),
+              children: const <Widget>[
+                Center(
+                  child: CreatedLists(),
+                ),
+                Center(
+                  child: ProductsScreen(),
+                ),
+                Center(
+                  child: Text('data'),
+                ),
+              ],
+            ),
       bottomNavigationBar: Material(
         color: Colors.white,
         child: TabBar(

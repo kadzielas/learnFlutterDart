@@ -1,0 +1,2 @@
+1. Błąd łączenia z serwerem
+2. Width i Height ustawiać % media

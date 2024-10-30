@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:market_app/providers/lists.dart';
-import 'package:market_app/providers/products_list.dart';
+import 'package:market_app/providers/database_connection.dart';
 import 'package:market_app/widgets/new_list.dart';
 
 class CreatedLists extends StatefulWidget {
@@ -14,9 +13,7 @@ class _CreatedListsState extends State<CreatedLists> {
   final ScrollController _scrollController = ScrollController();
 
   Future<void> _refreshProducts() async {
-    await Future.delayed(Duration(seconds: 2));
-
-    print('refreshing');
+    await Future.delayed(const Duration(seconds: 2));
   }
 
   @override
