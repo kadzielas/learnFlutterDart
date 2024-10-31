@@ -42,8 +42,6 @@ class _HomeScreenState extends State<ListsScreen>
     super.dispose();
   }
 
-  void _setScreen(String identifier) {}
-
   @override
   Widget build(BuildContext context) {
     Widget loadingScreen = const Center(
@@ -54,8 +52,8 @@ class _HomeScreenState extends State<ListsScreen>
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      drawer: HamburgerMenu(
-        onSelectScreen: _setScreen,
+      drawer: const HamburgerMenu(
+        onSelectScreen: setScreen,
       ),
       body: isLoading
           ? loadingScreen

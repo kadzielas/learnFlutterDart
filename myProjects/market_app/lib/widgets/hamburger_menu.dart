@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:market_app/main.dart';
 import 'package:market_app/screens/drawer/family.dart';
 import 'package:market_app/screens/drawer/history.dart';
 import 'package:market_app/screens/drawer/manage_home.dart';
 import 'package:market_app/screens/drawer/settings.dart';
 import 'package:market_app/screens/drawer/stats.dart';
+import 'package:market_app/screens/tabs/lists_screen.dart';
 
-class HamburgerMenu extends StatelessWidget {
+void setScreen(String identifier) {}
+
+class HamburgerMenu extends StatefulWidget {
   const HamburgerMenu({super.key, required this.onSelectScreen});
 
   final void Function(String identifier) onSelectScreen;
+
+  @override
+  State<HamburgerMenu> createState() => _HamburgerMenuState();
+}
+
+class _HamburgerMenuState extends State<HamburgerMenu> {
+  bool _isSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +52,42 @@ class HamburgerMenu extends StatelessWidget {
             ),
           ),
           ListTile(
+            tileColor: _isSelected ? Colors.grey : null,
+            leading: Icon(
+              Icons.label_important_sharp,
+              size: 26,
+              color: primaryColor,
+            ),
+            title: Text(
+              'Strona główna',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleSmall!
+                  .copyWith(color: secondaryColor, fontSize: 24),
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ListsScreen(
+                    title: pageTitle,
+                  ),
+                ),
+              );
+              setState(() {
+                _isSelected = true;
+              });
+            },
+          ),
+          ListTile(
             leading: Icon(
               Icons.home,
               size: 26,
               color: primaryColor,
             ),
             title: Text(
-              'Zarządzaj domem',
+              'Zarządzanie domem',
               style: Theme.of(context)
                   .textTheme
                   .titleSmall!
@@ -139,7 +179,7 @@ class HamburgerMenu extends StatelessWidget {
               color: primaryColor,
             ),
             title: Text(
-              'Ustawienia konta',
+              'Ustawienia',
               style: Theme.of(context)
                   .textTheme
                   .titleSmall!
@@ -162,7 +202,7 @@ class HamburgerMenu extends StatelessWidget {
               color: primaryColor,
             ),
             title: Text(
-              'Wyloguj się',
+              'Wylogowywanie',
               style: Theme.of(context)
                   .textTheme
                   .titleSmall!
@@ -172,6 +212,11 @@ class HamburgerMenu extends StatelessWidget {
               const Text('log out');
             },
           ),
+          const Spacer(),
+          const Text(
+            '--ver a0.17',
+            style: TextStyle(color: Color.fromARGB(100, 0, 0, 0)),
+          )
         ],
       ),
     );

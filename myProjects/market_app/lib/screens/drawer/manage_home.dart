@@ -1,10 +1,18 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:market_app/widgets/hamburger_menu.dart';
 
 class ManageHomeScreen extends StatelessWidget {
   const ManageHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Text('Manage home');
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Zarządzanie domem'),
+      ),
+      drawer: const HamburgerMenu(
+        onSelectScreen: setScreen,
+      ),
+    );
   }
 }

@@ -7,6 +7,7 @@ import 'package:postgres/postgres.dart';
 List<Product> availableProductsList = [];
 List<Product> listProducts = [];
 List<ListShop> lists = [];
+ListShop activeList = lists.first;
 
 late dynamic conn;
 
@@ -27,7 +28,7 @@ Future<void> connectToDatabase() async {
     settings: const ConnectionSettings(sslMode: SslMode.disable),
   );
   List<List<dynamic>> downloadedListOfProducts = await conn.execute(
-      'SELECT id, title, category::text, quantity, quantityhome, islist, isfav FROM products;');
+      'SELECT id, title, category::text, quantity, quantityhome, isInlist, isfav FROM products;');
   availableProductsList = downloadedListOfProducts.map((row) {
     return Product(
       id: row[0],
@@ -35,7 +36,7 @@ Future<void> connectToDatabase() async {
       category: _getCategoryFromString(row[2] as String),
       quantity: row[3],
       quanitityHome: row[4],
-      isList: row[5],
+      isInList: row[5],
       isFav: row[6],
     );
   }).toList();

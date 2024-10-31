@@ -9,6 +9,7 @@ import 'package:market_app/providers/database_connection.dart';
 
 final List<String> _categoryList = <String>[
   'Wszystko',
+  'Ulubione',
   'Napoje',
   'Kawa i herbata',
   'Nabiał',
@@ -32,9 +33,10 @@ class NewProduct extends StatefulWidget {
 class _NewProductState extends State<NewProduct> {
   late Categories selectedCategory;
   late List<Product> filteredProduct = [];
+  late List<Product> favoriteProducts = [];
   String? selectedCategoryTitle = _categoryList.first;
   ListShop? _selectedList;
-  String _selectedListString = 'Wybierz liste';
+  String _selectedListString = lists[0].title;
   // final TextEditingController _controller = TextEditingController();
   // final _formKey = GlobalKey<FormState>();
 
@@ -72,20 +74,13 @@ class _NewProductState extends State<NewProduct> {
     }
   }
 
-  int _incrementQuantity(int id) {
+  List<Product> _favoriteProducts() {
     setState(() {
-      availableProductsList[id].quanitityHome =
-          (availableProductsList[id].quanitityHome ?? 0) + 1;
+      filteredProduct = availableProductsList
+          .where((product) => product.isFav == true)
+          .toList();
     });
-    return availableProductsList[id].quanitityHome!;
-  }
-
-  void _decrementQuantity(int id) {
-    setState(() {
-      var item =
-          availableProductsList.firstWhere((element) => element.id == id);
-      item.quanitityHome = (item.quanitityHome ?? 0) - 1;
-    });
+    return filteredProduct;
   }
 
   @override
@@ -178,8 +173,13 @@ class _NewProductState extends State<NewProduct> {
                       default:
                         selectedCategory = Categories.everything;
                     }
+
                     selectedCategoryTitle = value!;
-                    _filteredProducts(selectedCategory);
+                    if (selectedCategory == Categories.favorites) {
+                      _favoriteProducts();
+                    } else {
+                      _filteredProducts(selectedCategory);
+                    }
                   });
                 },
                 items:
@@ -211,6 +211,7 @@ class _NewProductState extends State<NewProduct> {
                 onChanged: (ListShop? value) {
                   setState(() {
                     _selectedListString = value!.title.toString();
+                    activeList = value;
                   });
                 },
                 items: lists.map((ListShop value) {
@@ -307,7 +308,7 @@ class _NewProductState extends State<NewProduct> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                            'Produkty zostały dodane do listy: ${_selectedListString}'),
+                            'Produkty zostały dodane do listy: $_selectedListString'),
                       ),
                     );
                   },
@@ -315,7 +316,13 @@ class _NewProductState extends State<NewProduct> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).clearSnackBars();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                            'Produkty, które miały zostać dodane do listy: $_selectedListString zostały anulowane'),
+                      ),
+                    );
                   },
                   child: const Text('Anuluj'),
                 ),

@@ -14,6 +14,7 @@ final theme = ThemeData(
   textTheme: GoogleFonts.latoTextTheme(),
 );
 bool isLoading = true;
+String pageTitle = 'Bercik Cart';
 
 void main() async {
   dotenv.load(fileName: ".env");
@@ -37,10 +38,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: theme,
-      home: const DefaultTabController(
+      home: DefaultTabController(
         length: 3,
         child: ListsScreen(
-          title: "Bercik Cart!",
+          title: pageTitle,
         ),
       ),
     );
