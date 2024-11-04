@@ -1,3 +1,7 @@
+//database_connection - it's for connection to database that is created on docker [PostgreSQL].
+//There are tables for application like products, lists and accounts
+//Apart from that for a while is downloading data (details about products or lists).
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:market_app/models/categories.dart';
 import 'package:market_app/models/list_shop.dart';
@@ -27,8 +31,9 @@ Future<void> connectToDatabase() async {
     ),
     settings: const ConnectionSettings(sslMode: SslMode.disable),
   );
+
   List<List<dynamic>> downloadedListOfProducts = await conn.execute(
-      'SELECT id, title, category::text, quantity, quantityhome, isInlist, isfav FROM products;');
+      'SELECT id, title, category::text, quantity, quantityhome, isList, isfav FROM products;');
   availableProductsList = downloadedListOfProducts.map((row) {
     return Product(
       id: row[0],
@@ -36,10 +41,12 @@ Future<void> connectToDatabase() async {
       category: _getCategoryFromString(row[2] as String),
       quantity: row[3],
       quanitityHome: row[4],
-      isInList: row[5],
+      isList: row[5],
       isFav: row[6],
     );
   }).toList();
+
+  print(availableProductsList);
 
   List<List<dynamic>> downloadedLists =
       await conn.execute('SELECT id, title FROM lists;');
@@ -49,6 +56,7 @@ Future<void> connectToDatabase() async {
       title: row[1] as String,
     );
   }).toList();
+  print(lists);
 }
 
 Categories _getCategoryFromString(String categoryString) {

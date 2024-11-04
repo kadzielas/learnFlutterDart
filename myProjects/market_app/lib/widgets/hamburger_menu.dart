@@ -1,3 +1,5 @@
+//hamburger menu - drawer widget to move into e.g. family or settings page
+
 import 'package:flutter/material.dart';
 import 'package:market_app/main.dart';
 import 'package:market_app/screens/drawer/family.dart';

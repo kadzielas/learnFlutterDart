@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+//settings - page to manage own account (change password, name, e-mail, app layout,
+//notifications sound etc...)
 
+import 'package:flutter/material.dart';
 import 'package:market_app/widgets/hamburger_menu.dart';
 
 class SettingsScreen extends StatelessWidget {

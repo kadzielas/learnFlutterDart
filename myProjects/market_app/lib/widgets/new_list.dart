@@ -1,3 +1,5 @@
+//new list - overlay / widget to create new list
+
 import 'package:flutter/material.dart';
 
 class NewList extends StatefulWidget {

@@ -1,3 +1,5 @@
+//lists_screen - main page (home page) that allow us to check created lists or create new one
+
 import 'package:flutter/material.dart';
 import 'package:market_app/providers/database_connection.dart';
 import 'package:market_app/screens/tabs/products_screen.dart';
@@ -27,19 +29,18 @@ class _HomeScreenState extends State<ListsScreen>
     connect();
   }
 
-  Future<void> loadData() async {
-    await Future.delayed(const Duration(seconds: 3));
-
-    setState(() {
-      isLoading = false;
-    });
-  }
-
   @override
   void dispose() {
     _tabController.dispose();
-
     super.dispose();
+  }
+
+//widget that make loading screen
+  Future<void> loadData() async {
+    await Future.delayed(const Duration(seconds: 3));
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override

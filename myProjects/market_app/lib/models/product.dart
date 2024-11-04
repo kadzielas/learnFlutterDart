@@ -7,7 +7,7 @@ class Product {
     required this.category,
     this.quantity,
     this.quanitityHome,
-    this.isInList,
+    this.isList,
     this.isFav,
     this.isUpdated,
   });
@@ -16,7 +16,7 @@ class Product {
   final Categories category;
   int? quantity;
   int? quanitityHome;
-  bool? isInList;
+  bool? isList;
   bool? isFav;
   bool? isUpdated = false;
 }

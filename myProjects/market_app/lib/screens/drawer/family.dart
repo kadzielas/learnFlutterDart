@@ -1,3 +1,6 @@
+//family - it's page for manage family - add, remove or modify members
+//also to grant role [permisson].
+
 import 'package:flutter/material.dart';
 import 'package:market_app/widgets/hamburger_menu.dart';
 

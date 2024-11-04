@@ -1,3 +1,7 @@
+//new product - one of the most important page in the app.
+//here we are able to check count of products at home then based on the information
+//add products to specific list to buy
+
 import 'package:flutter/material.dart';
 import 'package:input_quantity/input_quantity.dart';
 import 'package:market_app/main.dart';
@@ -47,6 +51,13 @@ class _NewProductState extends State<NewProduct> {
     _loadData();
   }
 
+  @override
+  void dispose() {
+    _loadData();
+    super.dispose();
+  }
+
+//loading screen
   Future<void> _loadData() async {
     await Future.delayed(const Duration(seconds: 1));
     setState(() {
@@ -54,6 +65,7 @@ class _NewProductState extends State<NewProduct> {
     });
   }
 
+//function to filtr products by category or to check only favorites products
   _filteredProducts(Categories category) {
     setState(() {
       if (category != Categories.everything) {
@@ -66,6 +78,9 @@ class _NewProductState extends State<NewProduct> {
     });
   }
 
+//function to show specific list - I mean if you want see all products then
+//availableProductsList will be visible if you want see only softdrinks products then
+//filteredProduct will be visible
   List<Product> _showList() {
     if (filteredProduct.isEmpty) {
       return availableProductsList;
@@ -74,6 +89,7 @@ class _NewProductState extends State<NewProduct> {
     }
   }
 
+//similar to function above - however it's only for favorite items
   List<Product> _favoriteProducts() {
     setState(() {
       filteredProduct = availableProductsList
