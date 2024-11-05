@@ -41,6 +41,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  auth0:
+    dependency: "direct main"
+    description:
+      name: auth0
+      sha256: "4a25a4538d8810c5be55bfd8c75a56d8162ba7e2575381874041173177e7cc26"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.1"
+  auth0_flutter:
+    dependency: "direct main"
+    description:
+      name: auth0_flutter
+      sha256: b7ffcefb62eb12bfc25d11388608b921046dfcc6fd335a2820aef29835c75158
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.7.2"
+  auth0_flutter_platform_interface:
+    dependency: transitive
+    description:
+      name: auth0_flutter_platform_interface
+      sha256: "081c945835f86c26f62f2ed49871f02f3c6c78d6db58d9333325fd18c1c9b977"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.7.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -241,6 +265,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.6"
+  dio:
+    dependency: transitive
+    description:
+      name: dio
+      sha256: "5598aa796bbf4699afd5c67c0f5f6e2ed542afc956884b9cd58c306966efc260"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.7.0"
+  dio_web_adapter:
+    dependency: transitive
+    description:
+      name: dio_web_adapter
+      sha256: "33259a9276d6cea88774a0000cfae0d861003497755969c92faa223108620dc8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -312,6 +352,11 @@ packages:
     version: "2.5.1"
   flutter_test:
     dependency: "direct dev"
+    description: flutter
+    source: sdk
+    version: "0.0.0"
+  flutter_web_plugins:
+    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -407,10 +452,10 @@ packages:
     dependency: transitive
     description:
       name: js
-      sha256: c1b2e9b5ea78c45e1a0788d29606ba27dc5f71f019f32ca5140f61ef071838cf
+      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.1"
+    version: "0.6.7"
   json_annotation:
     dependency: transitive
     description:
@@ -595,6 +640,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.4.0"
+  pretty_dio_logger:
+    dependency: transitive
+    description:
+      name: pretty_dio_logger
+      sha256: "36f2101299786d567869493e2f5731de61ce130faa14679473b26905a92b6407"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.0"
   pub_semver:
     dependency: transitive
     description:

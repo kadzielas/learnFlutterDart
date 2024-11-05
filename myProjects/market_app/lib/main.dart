@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:market_app/providers/database_connection.dart';
-
 import 'package:market_app/screens/tabs/lists_screen.dart';
 
 final theme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     brightness: Brightness.light,
-    seedColor: const Color.fromARGB(255, 72, 195, 158),
+    seedColor: const Color.fromARGB(255, 26, 103, 80),
   ),
   textTheme: GoogleFonts.latoTextTheme(),
 );
