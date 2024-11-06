@@ -51,18 +51,20 @@ class _NewProductState extends State<NewProduct> {
     _loadData();
   }
 
+//loading screen
+  Future<void> _loadData() async {
+    await Future.delayed(const Duration(seconds: 1));
+    if (mounted) {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
   @override
   void dispose() {
     _loadData();
     super.dispose();
-  }
-
-//loading screen
-  Future<void> _loadData() async {
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() {
-      isLoading = false;
-    });
   }
 
 //function to filtr products by category or to check only favorites products
