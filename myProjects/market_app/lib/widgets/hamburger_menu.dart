@@ -27,6 +27,7 @@ class _HamburgerMenuState extends State<HamburgerMenu> {
   Widget build(BuildContext context) {
     final primaryColor = Theme.of(context).colorScheme.primary;
     final secondaryColor = Theme.of(context).colorScheme.onPrimaryContainer;
+    String textXD = 'jebac';
     return Drawer(
       child: Column(
         children: [
@@ -73,7 +74,7 @@ class _HamburgerMenuState extends State<HamburgerMenu> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => ListsScreen(
-                    title: pageTitle,
+                    title: textXD,
                   ),
                 ),
               );
